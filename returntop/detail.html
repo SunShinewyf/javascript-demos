@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>这是detail和summary的实例</title>
+	<style type="text/css">
+     .main{
+         width:300px;
+         height:3000px;
+         margin:0 auto;
+         border:1px solid black;
+     }
+    #btn{
+        width:69px;height: 215px;display:none; background: url(floatWindow.png) no-repeat left top;position:fixed;left:50%;bottom:30px;margin-left: 500px;
+    }
+    #btn:hover{
+        background: url(floatWindow.png) no-repeat;
+    }
+	</style>
+</head>
+<body>
+   <div class="main"></div>
+   <a href="javascript:" id="btn" title="回到顶部"></a>
+</body>
+ <script type="text/javascript">
+     window.onload = function(){
+        var btn = document.getElementById('btn'),   //获取按钮元素
+            timer = null,
+            istop = true;   //判断是否到达顶部
+            var client = document.documentElement.clientHeight; //获得根元素的客户端高度 
+
+
+            window.onscroll = function(){   //页面在滚动时触发
+                var top = document.documentElement.scrollTop || document.body.scrollTop; //获取滚动条在页面中的位置
+                if(top >= client){    //判断滚动条是否大于一帧的高度，如果是，则显示回到顶部图标，否则不显示
+                    btn.style.display = 'block';
+                }else{
+                    btn.style.display = 'none';
+                }
+
+                if(!istop){
+                    clearInterval(timer);   //如果达到浏览器顶部，则取消定时函数
+                }
+
+                istop = false;   //在滚动条滚动的时候，默认到达顶部的标志是假的
+
+            }
+            //图片按下时触发的函数
+            btn.onclick = function(){  //使用匿名函数
+                timer = setInterval(function(){
+                    var top = document.documentElement.scrollTop || document.body.scrollTop;
+                    var speed = (-top/5);  //设置而每次减少的高度 ，就是实现在快到达顶部的时候，回到顶部的速度变慢，直至回到顶部
+                    document.documentElement.scrollTop = document.body.scrollTop = top + speed;
+                    istop = true;
+                    if(top == 0){
+                        clearInterval(timer);
+                    }
+                },30);    //每隔30毫秒触发一次
+
+            }
+
+     }
+
+</script>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE　html>
+<html>
+   <head>
+      <title>实现图片轮播效果</title>
+      <meta charset="utf-8"/>
+      <style type="text/css">
+         *{margin:0;padding:0;}
+         #container{width:600px;height: 400px;overflow: hidden;position: relative;margin:0 auto;margin-top: 100px;} /*  //设置overflow使得溢出的内容隐藏掉*/
+         #list{width:4200px;height: 400px;position: absolute;z-index: 1;}
+         #list img{float: left;}
+         #buttons{position: absolute;left:100px; bottom:20px;z-index: 2;}
+         #buttons span{width:10px;height: 10px;border:1px solid #fff;border-radius: 50%;cursor: pointer;float: left; margin-left: 4px;}
+         #buttons .on{background-color: orangered;}
+         .arrow{width:30px;line-height: 40px;background-color: rgba(0,0,0,.3);text-align: center;cursor: pointer;display: none;position: absolute;z-index:2;text-decoration: none;color:#fff;top:50%;}
+         .arrow:hover{background-color: rgba(0,0,0,.7);}
+         #container:hover .arrow{display: block;}
+         #prev{left: 20px;}
+         #next{right: 20px;}
+      </style>
+   </head>
+   <body>
+      <div id="container">
+          <div id="list" style="left:-600px;">
+              <img src="5.png" alt=""/>
+              <img src="1.png" alt=""/>
+              <img src="2.png" alt=""/>
+              <img src="3.png" alt=""/>
+              <img src="4.png" alt=""/>
+              <img src="5.png" alt=""/>
+              <img src="1.png" alt=""/>
+          </div>
+          
+          <div id="buttons">
+              <span index="1" class="on"></span>
+              <span index="2"></span>
+              <span index="3"></span>
+              <span index="4"></span>
+              <span index="5"></span>
+          </div>
+          <a href="javascript:;" class="arrow" id="prev">&lt;</a>
+          <a href="javascript:;" class="arrow" id="next">&gt;</a>
+
+      </div>
+      <script type="text/javascript">
+ 
+         window.onload = function(){
+             
+         	 var container = document.getElementById('container');
+         	 var list = document.getElementById('list');
+             var buttons = document.getElementById('buttons').getElementsByTagName('span');
+             var prev = document.getElementById('prev');
+             var next = document.getElementById('next');
+             var index =1;
+             var animated = false;
+             var timer; //定义定时器
+            
+              //控制圆点的显示
+              function showbutton(){
+              	 for(var i=0;i<buttons.length;i++)
+              	 {
+                    if(buttons[i].className == 'on'){
+                    	buttons[i].className = "";
+                    	break;
+                    }
+                 
+              	 }
+              	 buttons[index-1].className ='on';
+              
+              }
+            
+
+              //move函数
+             function move(offset){
+              animated = true;
+             	var newleft = parseInt(list.style.left) + offset;
+                    var time = 300; //weiyizongde1shij
+                    var interval = 10;
+
+                    var speed = offset/(time/interval);
+                    function go(){
+                      if((speed<0 && parseInt(list.style.left) > newleft) || (speed>0 &&parseInt(list.style.left)<newleft))   
+                      {
+                          list.style.left = parseInt(list.style.left) +speed+'px';
+                          setTimeout(go,interval);  //递归调用自身
+                      }else{
+                          animated = false;
+                          list.style.left = newleft + 'px';
+                          if(newleft > -600){
+                              list.style.left = -3000 + 'px';
+                             }
+                             if(newleft < -3000){
+                              list.style.left = -600 +'px';
+                             }
+                      }
+                    }
+                 go();
+             }
+                //按下倒退按钮时切换到前一张图
+             prev.onclick = prevmove;
+             function prevmove(){
+             	if(index ==1){
+             		index =5;
+             	}else{
+                    index--;
+             	}
+             	 showbutton();
+               if(!animated){
+                 move(+600);
+               }
+             };
+                //按下前进图标时切换到后一张图
+             next.onclick = nextmove;
+             function nextmove(){
+             	if(index == 5){
+             		index =1;
+             	}else{
+             		index++;
+             	}
+
+             	showbutton();
+              if(!animated){
+             	move(-600);
+             }
+
+             };
+          //按钮点击时也要触发
+          for(var i=0;i<buttons.length;i++){
+            buttons[i].onclick = function(){
+              if(this.className == 'on'){
+                return;
+              }
+              var myIndex = parseInt(this.getAttribute('index'));
+              var offset = -600 * (myIndex - index);
+              index = myIndex;
+              showbutton();
+              if(!animated){
+                move(offset);
+              }
+            };
+          }
+           
+        //自动切换：
+        function play(){
+              timer = setInterval(nextmove,3000);  //设置定时器
+        }
+
+        //鼠标移到containe时会停止定时器
+        function stop(){
+          clearInterval(timer);
+        }
+
+        container.onmouseover = stop;
+        container.onmouseout = play;
+        play();
+           
+         };     
+      </script>
+   </body>
+
+</html>

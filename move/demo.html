@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+#div1 {width:100px; height:100px; background:red; position:absolute; cursor:move; overflow:hidden;}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript">
+// 	window.onload = function(){
+// 		var obj = document.getElementById('div1');  //获取元素
+// 		var divX = 0;   //先给元素的x坐标偏移值定为 0
+// 		var divY = 0;
+
+// 		//onmousemove和onmouseup都在放在onmousedown函数里
+// 	    obj.onmousedown = function(e){     //元素在鼠标按下的时候触发的事件
+// 	    	var oEvent = e || window.event;  
+// 	    	divX=oEvent.clientX-obj.offsetLeft;  //获取鼠标点击时发生的地方离元素的左边的距离
+//             divY=oEvent.clientY-obj.offsetTop;   //获取鼠标点击时发生的地方离元素的上边的距离
+// 	    	document.onmousemove = function(e){
+// 	    		var oEvent = e || window.event;
+// 	    		var left = oEvent.clientX - divX;  //获取元素的左边距离可视窗口之间的距离
+// 	    		var top = oEvent.clientY - divY;   //获取元素的上边距离可视窗口之间的距离
+
+// 	    		//使被拖曳的元素在可视区域内移动，而不会超出元素的范围
+// 	    		if(left<0){    //在移动时超出了可视区域左侧的最远距离
+// 	    			left = 0;
+// 	    		}else if(left>document.documentElement.clientWidth-obj.offsetWidth){   //在移动是超出可视区域右侧的最远距离
+//                      left = document.documentElement.clientWidth-obj.offsetWidth;
+// 	    		}
+
+
+// 	    		if(top<0){
+// 	    			top = 0;   
+// 	    		}else if(top > document.documentElement.clientHeight-obj.offsetHeight){
+// 	    			top = document.documentElement.clientHeight-obj.offsetHeight;
+// 	    		}
+
+// 	    		obj.style.left = left+'px';
+// 	    		obj.style.top = top+'px';
+// 	    	}
+// 	    obj.onmouseup = function(){  //当停止按下鼠标的时候，前面的事件设为无效
+// 	    	obj.onmousedown = null;
+// 	    	obj.onmousemove = null;
+// 	    };
+//   };
+// };
+
+</script>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+<script type="text/javascript">
+	 var obj = document.getElementById('div1');
+	 var isdrag = false;
+	 var offetX = 0;  //应该先进行全局变量的声明，否则之后不知道怎么调用
+	 var offetY = 0;
+	 obj.addEventListener('mousedown',function(e){
+	 	var e = e || window.event;
+	 	var obj = document.getElementById('div1');
+	 	offetX = e.pageX - obj.offsetLeft;   //获取鼠标首次点击时距离元素左边的距离，并且保存
+	 	offetY = e.pageY - obj.offsetTop;   //获取鼠标首次点击时距离元素顶部的距离，并且保存
+	 	isdrag = true;
+	 })
+
+	 document.onmouseup = function(e){
+        isdrag = false;
+	 };
+
+	 document.onmousemove = function(e){
+	 	var obj = document.getElementById('div1'); 
+	 	var e = e || window.event;
+	 	var mouseX = e.pageX;   //获取鼠标点击时的横坐标
+	 	var mouseY = e.pageY;   //获取鼠标点击时的纵坐标
+	 	var left = 0;
+	 	var top = 0;
+
+	 	if(isdrag === true){
+	 		left  = mouseX - offetX;   //将元素的左偏移设置为鼠标点击的横坐标与两者之前的距离之差
+	 		top  = mouseY - offetY;
+	 	//调整元素的移动范围
+	 		if(left < 0){
+               left = 0;
+	 		}else if(left > document.documentElement.clientWidth-obj.offsetWidth){
+	 			left = document.documentElement.clientWidth - obj.offsetWidth;
+	 		}
+	 		if(top < 0){
+	 			top = 0;
+	 		}else if(top > document.documentElement.clientHeight- obj.offsetHeight){
+	 			top = document.documentElement.clientHeight - obj.offsetHeight;
+	 		}
+	 		obj.style.left = left + 'px';
+	 		obj.style.top = top + 'px';
+	 	}
+	 }
+</script>
+</html>
