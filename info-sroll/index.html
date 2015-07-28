@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8"/>
+      <title>信息滚动</title>
+      <style>
+          *{margin: 0; padding: 0;}
+          body{font-family: "Microsoft Yahei"; font-size: 14px;}
+          .wrapper{width:500px;height:215px;margin: 0 auto;margin-top:100px;border:1px solid #ccc;}
+          header{height: 40px;line-height: 40px;background: #666;text-align: center;}
+          .info-area{height:175px;overflow: hidden; }   
+
+          ul{list-style: none; }
+          li{height: 24px;line-height: 24px; padding-left: 20px;border-top:1px solid #ccc;}
+          li a{text-decoration: none;}
+      </style>
+   </head>
+   <body>
+      <div class="wrapper">
+          <header>热点新闻</header>
+          <div class="info-area" id="area">
+              <ul id="list">
+                     <li><a href="">菲律宾渔民拖走黄岩岛附近多个中国浮标</a></li>
+                     <li><a href="">2013年我国净资产352万亿 专家称已超美国</a></li>
+                     <li><a href="">5只藏獒集体越狱 特警持微型冲锋枪击毙</a></li>
+                     <li><a href="">社科院副主任：中国能应对1.5次金融危机</a></li>
+                     <li><a href="">舆论场：青年约架被殴 给山东警方依法独立办案点赞</a></li>
+                     <li><a href="">湖北书记：1名优秀县委书记抓反腐 有人扬言整死他</a></li>
+                     <li><a href="">起底公立医院工资：有医生工作17年月薪3000元</a></li>
+                     <li><a href="">监拍夫妻吵架街头撒钞票 路人淡定经过</a></li>
+                     <li><a href="">起底公立医院工资：有医生工作17年月薪3000元</a></li>
+                     <li><a href="">监拍夫妻吵架街头撒钞票 路人淡定经过</a></li>
+              </ul>
+          </div>
+
+      </div>
+  
+   </body>
+   <script type="text/javascript">
+       var area = document.getElementById('area');
+       var time = 50;
+       var speed = 2000;
+       area.innerHTML+=area.innerHTML;
+       var timer ;
+
+     //   function scroll(){
+     //      if(area.scrollTop >= area.offsetHeight){
+     //              area.scrollTop = 0;
+     //      }else{
+     //        area.scrollTop++;
+     //      }
+     //   }
+
+     // area.onmouseover = function(){
+     //        clearInterval(timer);
+     // };
+
+     // area.onmouseout = function(){
+     //         timer = setInterval('scroll()',time);
+     // };
+
+     var liHeight = 24;
+     area.scrollTop =0;
+
+
+     function start(){
+        area.scrollTop++;
+        timer = setInterval('scroll()',time);
+     }
+     function scroll(){
+        // area.scrollTop++;
+        if(area.scrollTop % liHeight ==0){
+           clearInterval(timer);
+           setTimeout("start()",speed);
+        }else{
+          area.scrollTop++;
+          if(area.scrollTop >= area.scrollHeight/2){
+            area.scrollTop = 0;
+          }
+        }
+     }
+ setTimeout("start()",speed);
+
+
+
+   </script>
+
+</html>
