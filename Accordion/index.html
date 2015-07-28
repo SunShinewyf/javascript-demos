@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   <meta charset="utf-8"/>
+     <title>手风琴效果</title>
+     <style>
+        body,ul,li,p,h3{margin:0;padding:0;}
+        ul{list-style: none;}
+        .wrapper{
+             height:250px;border:1px solid #d3d3d3;border-color:rgba(0,0,0,.12);overflow: hidden;width: 942px;background: #fff;
+        }
+
+        .wrapper li{width:200px;height: 250px;float: left;overflow: hidden;border-right: 1px dotted #ccc;}
+        .wrapper li a{width: 200px;height: 250px;display: block;position: relative;overflow: hidden;cursor: pointer;text-decoration: none;}
+        .wrapper li img{height: 80px;width:117px;position: absolute;bottom: 0;right: -15px;}
+        .wrapper li .info{width:136px;padding:4px 10px;position: absolute;left:0;top:0;}
+        .wrapper li .info h3{font-size: 14px;font-weight: 700}
+        .wrapper li .info p{color:#868686;font-size: 12px;overflow: hidden;width:136px;height: 22px;line-height: 22px;}
+        .wrapper li .mask{height: 250px;width:200px;background-color: #000;opacity: 0.3;position: absolute;top:0;left: 0;display: block;}
+
+        .wrapper ul *{transition:all 0.1s linear;}  //css3的动画效果
+        .wrapper li .mask:hover{opacity: 0;}
+        .wrapper .big,.wrapper .big a{height: 250px;width:338px;}
+        .wrapper .big img{width: 195px;height: 120px;right: 0;bottom: 0;}
+        .wrapper .big .info{width:294px;}
+        .wrapper .big .info h3{font-size: 18px;}
+        .wrapper .big .info p{font-size: 14px;width:166px;}
+        .wrapper .big .mask{width:338px;}
+
+
+     </style>
+   </head>
+   <body>
+       <div class="wrapper" id="subject">
+           <ul>
+             <li class="big">
+                <a href="#">
+                	<img src="1.png"/>
+                	<div class="info">
+                      <h3 style="color:#f62368">光派聚会</h3>
+                      <p>加入我们</p>
+                	</div>
+                	<i class="mask"></i>
+                </a>
+             </li>
+
+             <li>
+              <a href="#">
+                	<img src="2.png"/>
+                	<div class="info">
+                      <h3 style="color:#f62368">光派聚会</h3>
+                      <p>加入我们</p>
+                	  <i class="mask"></i>
+                	</div>
+                </a>
+            </li>
+              <li>
+              <a href="#">
+                	<img src="3.png"/>
+                	<div class="info">
+                      <h3 style="color:#f62368">光派聚会</h3>
+                      <p>加入我们</p>
+                	  <i class="mask"></i>
+                	</div>
+                </a>
+            </li>
+              <li>
+              <a href="#">
+                	<img src="4.png"/>
+                	<div class="info">
+                      <h3 style="color:#f62368">光派聚会</h3>
+                      <p>加入我们</p>
+                	  <i class="mask"></i>
+                	</div>
+                </a>
+            </li>
+           </ul>
+       </div>
+   </body>
+   <script type="text/javascript">
+
+      function bind(ele,eventType,callback){   //声明并实现回调函数
+      	if(ele.addEventListener){
+      		ele.addEventListener(eventType,callback,false);
+      	}else if(ele.attachEvent){
+            ele.attachEvent('on'+eventType,callback);
+      	}
+      }
+
+      function mousehandler(e){
+          var target = e.target || e.srcElement;  //获得事件的源头元素
+          var subject = document.getElementById('subject');
+          var list = subject.getElementsByTagName('li');
+          for(var i=0;i<list.length;i++){
+          	list[i].className = '';   //为每一个li元素加一个空的类
+          }
+          while(target.tagName != 'LI' || target.tagName == 'BODY'){  //向上进行遍历，因为事件点击时有很多元素，鼠标悬停时经过的元素可能是li，info或者img
+          	target = target.parentNode;
+          }
+
+          target.className = 'big';   //为源头元素添加新的类
+
+      }
+      function init(){
+      var subject = document.getElementById('subject');
+      var list = subject.getElementsByTagName('li');
+      for(var i=0;i<list.length;i++){
+      	bind(list[i],'mouseover',mousehandler);  //mouseover刚开始并没有用‘’号，报错
+      }
+     }
+
+     init();  //执行初始化函数
+   </script>
+</html>
