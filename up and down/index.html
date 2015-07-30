@@ -5,37 +5,49 @@
    <title>信息的展开和收起</title>
    <style>
        body{margin:0;padding:0;}
-       #box{background:#e8e8e8;width:800px;height:auto;margin:0 auto;text-align:center;;}
-       .content{background:grey;width:800px;height:60px;text-align:center;margin:0 auto;line-height:60px;}
+       #box{background:#e8e8e8;width:800px;height:120px;margin:0 auto;text-align:center;display: block;overflow: hidden;}
+       #button{background:gray;width:800px;height:60px;text-align:center;margin:0 auto;line-height:60px;}
 
    </style>
-
-   <script>
-            var h = 0;
-             function addH(){
-		if(h<300){
-                   h+=5;
-		   document.getElementById('box').style.height=h+'px';
-		}else{
-			
-                  return;
-		}
-                  setTimeout('addH()',30);
-              }
-          window.onload = function(){
-                     addH();
-           }
-   </script>
   
 </head>
    <body>
       <div id="box">
            <h1>欢迎加入我们</h1>
            <h2>大屏广告</h2>
-      <div>
-      <div class="content">
-            <p>你们的满意就是我们的宗旨</p>
       </div>
-
+          <p id="button">更多信息+</p>
    </body>
+      <script>
+      var box = document.getElementById('box');
+      var button = document.getElementById('button');
+      var h =0;
+
+      function addH(){
+        if(h<300){
+          h+=5;
+          box.style.height = h +'px';
+        }else{
+          return;
+        }
+          setTimeout('addH()',40);
+      }
+
+      function subH(){
+        if(h>0){
+          h-=5;
+          box.style.height = h+'px';
+        }else{
+          return;
+        }
+        setTimeout('subH()',30);
+      }
+
+      window.onload = function(){
+        addH();
+        setTimeout('subH()',5000);
+      }
+
+      
+   </script>
 </html>

@@ -43,6 +43,7 @@
        area.innerHTML+=area.innerHTML;
        var timer ;
 
+   //无间隙地进行滚动
      //   function scroll(){
      //      if(area.scrollTop >= area.offsetHeight){
      //              area.scrollTop = 0;
@@ -63,6 +64,7 @@
      area.scrollTop =0;
 
 
+//每滚动一条信息停止两秒
      function start(){
         area.scrollTop++;
         timer = setInterval('scroll()',time);
@@ -80,8 +82,7 @@
         }
      }
  setTimeout("start()",speed);
-
-
+   
 
    </script>
 
