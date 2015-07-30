@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>demo</title>
+   <meta charset="utf-8"/>
+   <script type="text/javascript">
+        function create(){
+        	  var text = document.getElementById('text');
+              var parent = document.getElementById('ul');
+              var children = document.createElement('li');  //设置了添加li元素的变量
+              var a = document.createElement('a');   //设置了添加a链接的变量
+
+              children.innerHTML = text.value;  //将表单提交的文字作为li的文本
+              a.innerHTML = '删除';   //给每一个li元素添加“删除”的超链接
+              a.href="javascript:;";
+
+
+              a.onclick = function(){
+              	parent.removeChild(this.parentNode);  //每点击一个li元素的删除超链接，那么这个li就会删除
+              }
+              
+              children.appendChild(a);
+              parent.appendChild(children);
+
+        }         
+ 
+
+   </script>
+</head>
+<body>
+    <input type="text" name="text" id="text"/>
+    <input type="submit" id="submit" value="添加" onclick="create();" />
+    <ul id="ul">
+
+
+    </ul>
+</body>
+</html>
