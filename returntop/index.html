@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>demo</title>
+   <meta charset="utf-8"/>
+     <style>
+          .main{
+          	width: 980px;
+          	height: 3000px;
+          	margin: 0 auto;
+          	border: 1px solid black;
+          }
+          img{
+          	position: fixed;
+          	bottom: 50px;
+          	right: 100px;
+          }
+     </style>
+   </head>
+<body>	
+     <div class="main"></div>
+     <img id="scroll" src="scrollup.png"/>
+</body>
+<script src="jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#scroll').click(function(){
+			$('html,body').animate({scrollTop:0},'slow');
+		})
+	})
+
+</script>
+</html>
