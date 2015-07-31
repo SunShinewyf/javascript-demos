@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>简单选项卡制作</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+	   *{margin: 0;padding:0;}
+       #tab{ width:606px;height: 400px;margin: 0 auto;margin-top:200px;position: relative;}
+       ul{list-style: none;}
+       li{float: left;display: inline; width:200px;height: 40px;line-height: 40px;text-align: center;border:1px solid gray;background: #e8e8e8;}
+       .box{width:604px;height:250px;border:1px solid #e8e8e8; display: none; position: absolute;left:0;top:42px;}
+       .box h2{ font-size: 14px;padding-left: 15px;margin-top: 20px;}
+       .box p{font-size: 13px;padding-left: 37px;line-height: 25px;}
+       .first{ margin-top: 20px;}
+       .active{background:rgba(216, 76, 49, 0.8);}
+
+	</style>
+</head>
+<body>
+    <div id="tab">
+        <ul>
+           <li class="active">DIV+CSS 课程</li>
+           <li class="link">JavaScript+JQuery 课程</li>
+           <li class="link">联系妙味课堂</li>
+        </ul>
+  
+    <div id="content">
+         <div class="box"  style="display:block;">
+            <h2>DIV+CSS 课程可以让你：</h2>
+            <p class="first">&raquo; 精通 W3C 网页标准和 CSS2.0 规范下的页面制作；</p>
+            <p>&raquo; 熟悉浏览器兼容性调试，包括但不限于 IE6，IE7，IE8，Firefox2.0；</p>
+            <p>&raquo; 熟悉网站建设流程及 PhotoShop 精确切图；</p>
+            <p>&raquo; 运用 DIV+CSS 技术熟练制作出网易、魔兽等门户级网站；</p>
+            <p>&raquo; 掌握网页常见的码 JavaScript 效果；</p>
+         </div>
+
+         <div class="box">
+            <h2>JavaScript+JQuery 课程可以让你：</h2>
+            <p class="first">&raquo; 轻松实现复杂的网页交互特效，不再辛苦的找寻、套用他人代码；</p>
+            <p>&raquo; 熟悉 AJAX 运作机制，与后台默契配合程度达至天衣无缝；</p>
+            <p>&raquo; 将页面内容以最佳用户体验方式呈现，真正站到用户角度进行前端开发；</p>
+            <p>&raquo; 熟练使用 jquery 框架编写跨浏览器程序，提高工作效率；</p>
+            <p>&raquo; 轻松应聘各大公司 <b>网站前端开发工程师</b> 职位</p>
+         </div>
+
+         <div class="box">
+            <h2>妙味的联系方式：</h2>
+            <p class="first">&raquo; 妙味联系人：刘伟</p>
+            <p>&raquo; 我的手机：131 41414 820</p>
+            <p>&raquo; 我的QQ：20907961</p>
+            <p>&raquo; 还有MSN：lw-2004@hotmail.com</p>
+            <p>&raquo; 这是妙味课程的网址：<a href="http://www.miaov.com">http://www.miaov.com</a></p>
+         </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+      var tab = document.getElementById('tab');
+      var content = document.getElementById('content');
+      var ul = tab.getElementsByTagName('ul')[0];   //获取选项卡的ul
+      var li = ul.getElementsByTagName('li');
+      var box = tab.getElementsByTagName('div')[0].getElementsByTagName('div');//获取box，刚开始可以有getElementsByClassName,但是之后才知道不可用
+
+      for(var i=0;i<li.length;i++){
+      	 li[i].index = i;   //需要对li定义一个index属性，否则无法将每一个index付给后面的box
+      	 li[i].onmouseover = function(){
+      	 	  for(var j=0;j<li.length;j++){
+      	 	  	li[j].className = 'link';
+      	 	  	box[j].style.display = 'none';
+      	 	  }
+                box[this.index].style.display = 'block';
+                // alert(i);     //尝试地将i弹出，但是每一次弹出的都是3，看来js中的循环和其他语言的循环还是有很大的差异的
+                // box[i].style.display = 'block';    
+                this.className = 'active';
+
+      	 };
+
+      }
+  </script>
+</body>
+</html>
