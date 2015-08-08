@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   	<meta charset="utf-8"/>
+   	   <title>弹出层效果</title>
+   	   <style type="text/css">
+            .main{background: url(bg.jpg);width:100%;height: 2000px;}
+             #key{text-align: center;color: red;width: 80px;height: 40px;line-height: 40p;background: red;color:#fff;border:none;margin-top: 200px;margin-left:600px;}
+            #mask{width:100%;height: 1000px;background: #000;opacity: 0.75;filter:alpha(opacity=75);position: absolute;left: 0;top:0;z-index: 1000;}
+            #login{ width:400px;height: 400px;background: #fff;z-index:1003;position: fixed;left:30%;top:30%;}
+            #close{position: absolute;top:0;right: 0;}
+            #close img{width:40px;height: 40px;}
+   	   </style>
+   </head>
+   <body>
+   	   <div class="main">
+             <button id="key">登录</button>
+   	   </div>
+      <!--  <div class="mask"></div>
+       <div id="login">
+             <div id="close"><img src="close.jpg"/></div>
+       </div> -->
+
+       <script type="text/javascript">
+   
+            window.onload = function(){
+                 var key = document.getElementById('key');
+                 key.onclick = function(){
+                 var mHeight = document.documentElement.scrollHeight;   //获取整个页面的高度
+                 var mWidth = document.documentElement.scrollWidth;   //获取整个页面的宽度 
+                 var cHeight = document.documentElement.clientHeight;  //获取可是区域的高度
+                 var cWidth = document.documentElement.clientWidth;   //获取可是区域的高度
+                   
+                   //将元素显示出来                 
+                 var oMask = document.createElement('div');
+                 oMask.id = 'mask';
+                 oMask.style.height = mHeight + 'px';
+                 oMask.style.width = mWidth + 'px';
+                 document.body.appendChild(oMask);
+               
+                 //显示登录框
+                 var oLogin = document.createElement('div');
+                 oLogin.id = "login";
+                 oLogin.innerHTML = "<div id='close'><img src='close.jpg'/></div>";
+                 document.body.appendChild(oLogin);   //要先加入到dom文档中,否则之后在后面无法获取ologin的高和宽
+
+                 var dWidth = oLogin.offsetWidth;
+                 var dHeight = oLogin.offsetHeight;
+                 //设置登录框的状态
+                 oLogin.style.left = (cWidth-dWidth)/2 + 'px';
+                 oLogin.style.top = (cHeight-dHeight)/2 + 'px';
+
+                   var close = document.getElementById('close');
+                    oMask.onclick=close.onclick= function(){
+                    document.body.removeChild(oMask);
+                    document.body.removeChild(oLogin);
+                   };
+                 }
+            };
+       </script>
+   </body>
+
+</html>
