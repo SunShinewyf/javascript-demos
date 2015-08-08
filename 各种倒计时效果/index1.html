@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title>实现当前时间的正常显示</title>
+            <style>
+               #time{margin-top:200px;margin-left:200px;font-size: 14px;color: red;}
+            </style>
+        </head>
+        <body>
+               <div id="time"></div>
+        </body>
+        <script>
+            window.onload = function(){
+                showTime();
+                
+                
+                //将时间转换为两位数
+                function checkTime(i){
+                    if (i<10) {
+                        i = '0'+i;
+                    }
+                    return i;
+                }
+                
+                
+                
+                //设置一个循环函数
+                function showTime() {
+                    
+                   //获取id节点
+                    var time = document.getElementById('time');
+                    var myDate = new Date();
+                    var year = myDate.getFullYear();
+                    var month = myDate.getMonth();
+                    var day = myDate.getDate();
+                    var week = [
+                       "星期天","星期一","星期二","星期三","星期四","星期五","星期六"            
+                    ];
+                    
+                    
+                    var weekday = myDate.getDay();
+                    var h = myDate.getHours();
+                    var m = myDate.getMinutes();
+                    var s = myDate.getSeconds();
+                    
+                    
+                    time.innerHTML = "当前时间是:"+year+"年"+(month+1)+"月"+checkTime(day)+"日"+h+":"+checkTime(m)+":"+checkTime(s);
+                    setTimeout(showTime,500);
+                }
+              
+            };
+        </script>
+    </html>

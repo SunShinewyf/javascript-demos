@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title>实现倒计时效果</title>
+            <style>
+               #time{margin-top:200px;margin-left:200px;font-size: 14px;color: red;}
+            </style>
+        </head>
+        <body>
+               <div id="time"></div>
+        </body>
+        
+        <script>
+            window.onload = function(){
+                showDay();
+              //设置显示距离天数的函数
+              
+              function showDay() {
+                    var time = document.getElementById('time');
+                    var endTime = new Date('2016,1,1');
+                    var currentTime = new Date();
+                    var left = endTime.getTime()-currentTime.getTime();
+                    //一天为24小时,一小时60分,一分钟60秒,一秒为1000毫秒
+                    var leftDay = parseInt(Math.ceil(left/(24*60*60*1000)));
+                    
+                    time.innerHTML = "现在距离2016年元旦还有"+leftDay+"天";
+                    
+                    setTimeout(showDay(),1000*60);  
+                }
+                              
+            };
+        </script>
+    </html>
+        
+        

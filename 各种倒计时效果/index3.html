@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title>实现倒计时效果</title>
+            <style>
+               #time{margin-top:200px;margin-left:200px;font-size: 14px;color: red;}
+            </style>
+        </head>
+        <body>
+               <div id="time"></div>
+        </body>
+            
+        <script>
+            window.onload = function(){
+                   showLeftTime();
+                   
+                   function showLeftTime(){
+                     var time = document.getElementById('time');
+                     var endTime = new Date('2015/11/11,24:00:00');   //注意这里时间的写法
+                     var currentTime = new Date();
+                     var leftTime =parseInt((endTime.getTime() - currentTime.getTime())/1000);
+                     var day = parseInt(leftTime/(24*60*60));  //得到距离的天数
+                     var h = parseInt(leftTime/(60*60)%24);  //得到距离的小时数
+                     var m = parseInt(leftTime/60%60);    //得到距离的分钟数
+                     var s = leftTime%60;  //得到距离的秒数
+                      
+                    //显示内容
+                     time.innerHTML = "现在距离抢购结束的时间还有"+day+"天"+h+"时"+m+"分"+s+"秒";
+                     if (leftTime<0) {
+                        time.innerHTML = "抢购已经结束";
+                     }
+                     
+                     setTimeout(showLeftTime,500);
+                   }
+                };
+        </script>
+    </html>
