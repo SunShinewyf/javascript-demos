@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title>图片显示效果</title>
+            <style>
+                *{ margin: 0;padding: 0;}
+                #main{width:886px;height: 300px;margin-top:200px;margin: 0 auto;}
+                ul{ list-style: none;}
+                .item{width:200px;height: 300px;float: left;border:1px solid #e8e8e8;display: inline;margin-left: 15px;position: relative;overflow: hidden;}
+                img{width:200px;height: 300px;}
+                a{width:200px;height: 300px;position: absolute;top:260px;left: 0px;padding-top: 100px;text-align: center;background: #000;
+                opacity: 0.5;filter:alpha(opacity=50);text-decoration: none;display: block;color: #fff;}
+                
+                /*//首先通过设置a的top值为260px;向下隐藏了a的部分面积,然后用js设置onmouseover事件将它的top值进行动态改变即可*/
+                
+                
+                
+        </style>
+        </head>
+        <body>
+            <div id="main">
+                <ul>
+                    <li class="item">
+                        <img src="1.jpg"/>
+                        <a href="">所谓的那些风景,就是在人生中的 每一次点点滴滴地积累,你好,便是晴天</a>
+                    </li>
+                    <li class="item">
+                        <img src="2.jpg"/>
+                        <a href=""> 传说中的那片四叶草,是否可以如预期般那样给我们带来幸福呢</a>
+                    </li>
+                    <li class="item">
+                        <img src="3.jpg"/>
+                        <a href="">不管是不是能在一起，我始终相信我们的相遇，都是前世几亿次的回眸换来的</a>
+                    </li>
+                    <li class="item">
+                        <img src="4.jpg"/>
+                        <a href="">轻容的蒲公英带着它那飘逸的花絮，带着我的梦想飘向远方，也飘进你的梦里</a>
+                    </li>
+                </ul>
+            </div>
+            <script>
+                window.onload = function(){
+                    
+                    //获取类名为class的Dom元素
+                    function getClass(obj,cls){
+                        var elements = obj.getElementsByTagName('*');
+                        var result = [];
+                        for(var i=0;i<elements.length;i++){
+                            if (elements[i].className == cls) {
+                                result.push(elements[i]);
+                            }
+                        }
+                        return result;
+                    }
+                    var main = document.getElementById('main');
+                    var item = getClass(main,'item');
+                    
+                    //获取所有a标签,并且放在一个数组中保存
+                    var a = [];
+                    for(var i=0;i<item.length;i++){
+                        item[i].index = i;   //尤其注意这一句,只有这一句才能更好使用
+                        var _a = item[i].getElementsByTagName('a')[0];
+                        a.push(_a);
+                        
+                    }
+                    
+                    for(var i=0;i<item.length;i++){
+                        item[i].onmouseover = function(){
+                            for(var j=0;j<item.length;j++){   //先进行遍历,奖其他的所有遮罩层都进行隐藏,否则前面的遮罩层不会消失
+                                a[j].style.top = '260'+'px';
+                            }
+                            a[this.index].style.top = '0';
+                        };
+                        
+                        item[i].onmouseout = function(){   //鼠标移开事件
+                            for(var j=0;j<item.length;j++){
+                                a[j].style.top = '260' + 'px';
+                            }
+                        }
+                    }
+                };
+            </script>
+        </body>
+    </html>
