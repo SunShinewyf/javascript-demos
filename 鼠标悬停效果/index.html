@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8"/>
+   	  <title>实现鼠标悬停效果</title>
+   	  <style>
+           #main{height: 400px;position: relative;}
+           #pointer1{top:181px;left: 441px;width:20px;height: 40px;position: absolute;}
+           #pointer2{top:324px;left: 600px;width:20px;height: 40px;position: absolute;}
+           #image1{top:134px;left: 372px;position:absolute; opacity: 0;}
+           #image2{top:272px;left:546px;position:absolute; display: none;}
+           #image1 img,
+           #image2 img{width:120px;height: 120px;border:1px solid #ccc;border-radius: 50%;}
+
+   	  </style>
+   </head>
+   <body>
+      <div id="main">
+          <img src="place.jpg"/>
+      	  <div class="place">
+               <img id="pointer1" src="point_icon.png"/>
+               <div id="image1"><img src="1.jpg"/></div>
+      	  </div>
+      	  <div class="place">
+               <img id="pointer2" src="point_icon.png"/>
+               <div id="image2"><img src="2.jpg"/></div>
+      	  </div>
+      </div>
+
+      <script type="text/javascript">
+            window.onload = function(){
+            	init();
+
+            
+            	//设置初始化函数
+            	function init(){
+            		var main = document.getElementById('main');
+            	    var point1 = document.getElementById('pointer1');
+            	    var point2 = document.getElementById('pointer2');
+            	    var image1 = document.getElementById('image1');
+            	    var image2 = document.getElementById('image2');
+
+            	    point2.onmouseover = function(){
+                        var time = 0;
+                        var timer = setInterval(function(){
+                               if(time == 0){
+                               	time+=5;
+                               }else{
+                               	time-=5;
+                               }
+
+                               image2.style.opacity = time/100;
+                               image2.style.filter = 'alpha(opacity='+time+')';
+                        },30);
+            	    }
+
+
+            	}
+
+            }
+      </script>
+   </body>
+</html>
