@@ -9,7 +9,7 @@
           #panel .title{background: #eee;text-align: center;line-height: 30px;border: 1px solid #fff;font-weight: bold; }
           .right{width:10px;height: 100%;background: blue;position: absolute;top:0;right: 0;cursor: e-resize;}
           .bottom{width:100%;height: 10px;background-color: red;bottom: 0;position: absolute;cursor: s-resize;}
-          .rg-bom{width: 20px;height: 20px;background: green;bottom: 0;right: 0;position: absolute;cursor: nw-resize;}
+          .rg_bom{width: 20px;height: 20px;background: green;bottom: 0;right: 0;position: absolute;cursor: nw-resize;}
 
   	</style>
   </head>
@@ -18,118 +18,130 @@
         <div class="title">可调面板</div>
      </div>
      <script>
-          window.onload = function(){
-              var panel = document.getElementById('panel'),
-          	      moving = 0,
-          	      startX = 0,
-          	      startY = 0,
-          	      ToX = 0,
-          	      ToY = 0,
-          	      minH = 40,
-          	      minW = 100;
-          	  //将页面元素进行添加
-          	  function Resize(){
-              var right = document.createElement('div');
-              var bottom = document.createElement('div');
-              var rb_dom = document.createElement('div');
-              right.className = 'right elem_ctrl';
-              bottom.className = 'bottom elem_ctrl';
-              rb_dom.className = 'rg-bom elem_ctrl';
-              panel.appendChild(right);
-              panel.appendChild(bottom);
-              panel.appendChild(rb_dom);
-              
-              addEvent(right,'mousedown',function(e){
+        window.onload = function(){
+           var panel = document.getElementById('panel');
+           var startX = 0,  
+               startY = 0,
+               moving = 0,
+               endX = 0,
+               endY = 0,
+               ctrl,  //受控制的元素
+               type;  //受控制的类型
+           //控制面板大小函数
+           function reSize(){
+             var right = document.createElement('div');
+             var bottom = document.createElement('div');
+             var rg_bom = document.createElement('div');
+             right.className = 'right ctrl_elem';
+             bottom.className = 'bottom ctrl_elem';
+             rg_bom.className = 'rg_bom ctrl_elem';
+             panel.appendChild(right);  //将右边元素加上
+             panel.appendChild(bottom);  //将底部控制元素加上
+             panel.appendChild(rg_bom);  //将右下角控制元素加上
+             
+             //为各个控制元素添加事件
+             addEvent(right,'mousedown',function(e){
                   on_mousedown(e,panel,right,'right');
-              });
+             });
 
-              addEvent(bottom,'mousedown',function(e){
-              	on_mousedown(e,panel,bottom,'bottom');
-              });
+             addEvent(bottom,'mousedown',function(e){
+                  on_mousedown(e,panel,bottom,'bottom');
+             });
 
-              addEvent(rb_dom,'mousedown',function(e){
-              	on_mousedown(e,panel,rb_dom,'rb_dom');
-              });
+             addEvent(rg_bom,'mousedown',function(e){
+                  on_mousedown(e,panel,rg_bom,'rg_bom');
+             })
 
+           }
+
+           //获得类名为cls的do元素，以便浏览器的兼容性
+           function getClass(obj,cls){
+             var elements = obj.getElementsByTagName('*');
+             var result = [];
+             var testReg = new RegExp("(^|\s)" + cls + "(\s|$)"); 
+             for(var i=0;i<elements.length;i++){
+                if(testReg.test(elements[i])){
+                    result.push(elements[i]);
+                }
              }
-
-             //定义获取类名的函数
-
-             function getClass(obj,cls){
-             	var testReg = new RegExp("(^|\s)" + cls + "(\s|$)"); 
-             	var elements = obj.getElementsByTagName('*');
-             	var result = [];
-             	for(var i=0;i<elements[i];i++){
-             		if(testReg.test(elements[i])){
-             			result.push(elements[i]);
-             		}
-             	}
-
-             	return result;
+             return result;
+           }
+       
+         //为元素添加事件的函数
+         function addEvent(obj,type,fn){
+             if(obj.addEventListener){
+                 obj.addEventListener(type,fn,false);
+             }else if(obj.attachEvent){
+                 obj.attachEvent('on'+type,fn);
              }
+         }
+          
+          //定义on_mousedown函数
+          function on_mousedown(e,panel,elem,ty){
+              var e = e || window.event;
+              ctrl = elem;
+              panel = panel;
+              type = ty;
+              startX = e.pageX - ctrl.offsetLeft;
+              startY = e.pageY - ctrl.offsetTop;
+              moving = setInterval(on_move,10);
+          }
 
-             //设置监听事件的函数
-             function addEvent(obj,type,fn){
-             	if(obj.addEventListener){
-             		obj.addEventListener(type,fn,false);
-             	}else if(obj.attachEvent){
-             		obj.attachEvent('on'+type,fn);
-             	}
-             }
+          //定义on_move函数
+          function on_move(){
+              if(moving){
+                  var minW = panel.offsetLeft;  //panel的最小宽度
+                  var minH = panel.offsetTop;  //panel 的最小高度
 
-             //设置on_mousedown函数
+                  var newX = endX - startX;
+                  var newY = endY - startY;
 
-             function on_mousedown(e,panel,ctrl,ty){
-             	  var type = ty;
-                  var e = e|| window.event;
-
-                  startX = e.pageX - ctrl.offsetLeft;
-                  startY = e.pageY - ctrl.offsetTop;
-
-                  alert(startX);
-
-                  moving = setInterval(on_move,10);
-
-                      //事件on_move
-             function on_move(){
-             	if(moving){
-             		var min_left = panel.offsetLeft;
-             		var min_top = panel.offsetTop;
-             		var ToX = Math.max(min_left+minW,ToX-startX);
-             		var ToY = Math.max(min_top+minH,ToY-startY);
-             		panel.style.width = ToX;
-             		panel.style.height = ToY;
-             		switch(type){
-             			case 'right':
-             			ctrl.style.left = ToX +'px';
-             			panel.style.width = ToX + 'px';
-             			break;
-             			case 'bottom':
-             			ctrl.style.top = ToY + 'px';
-             			panel.style.height = ToY +'px';
-             			break;
-             			case 'rb_dom':
-             			ctrl.style.left = ToX +'px';
-             			panel.style.width = ToX + 'px';
-             			ctrl.style.top = ToY + 'px';
-             			panel.style.height = ToY +'px';
-             		}
-
-             	}
-             }
-             }
-
-             //页面鼠标移动监听事件
-             document.onmousemove = function(e){
-             	var e = e || window.event;
-             	ToX = e.pageX;
-             	ToY = e.pageY;
-             }             
-
-         
-
-             Resize();
+                  newX = Math.max(minW,newX); //控制面板不会超过最小的宽度
+                  newY = Math.max(minH,newY);  //控制面板不会小于最小的高度
+                  switch(type){
+                     case 'right':
+                           ctrl.style.left = newX + 'px';
+                           panel.style.width = newX + 10 + 'px';
+                           break;
+                     case 'bottom':
+                           ctrl.style.top = newY + 'px';
+                           panel.style.height = newY + 10 + 'px';
+                           break;
+                     case 'rg_bom':
+                           ctrl.style.left = newX + 'px';
+                           ctrl.style.top = newY + 'px';
+                           panel.style.width = newX + 20 + 'px';
+                           panel.style.height = newY + 20 + 'px';
+                           break;
+                  }
+              }
+          }
+          //定义鼠标在拖动过程中的函数，计算鼠标的位置
+          document.onmousemove = function(e){
+              var e = e || window.event;
+              endX = e.pageX;
+              endY = e.pageY;
           };
+          //定义当鼠标松开的时候的函数，此时消除定时器
+           document.onmouseup = function(e){
+              clearInterval(moving);
+              moving = 0;
+              var elem = document.getElementsByClassName('elem_ctrl');
+              for(var i=0;i<elem.length;i++){
+                  elem[i].style.left = '';
+                  elem[i].style.top = '';
+              }
+              // var elem = getClass(panel,'ctrl_elem');
+              // for(var i=0;i<elem.length;i++)
+              // {
+              //     elem[i].style.left = ' ';
+              //     elem[i].style.top = ' ';
+              // }
+          };
+         
+           //执行函数
+           reSize();
+        };
      </script>
   </body>
   </html>
