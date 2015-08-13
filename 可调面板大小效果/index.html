@@ -7,9 +7,9 @@
   	      body{margin: 0px;padding:50px;font-size: 14px;color: #333;}
           #panel{width:500px;height: 240px;border:1px solid #ccc;position: relative;}
           #panel .title{background: #eee;text-align: center;line-height: 30px;border: 1px solid #fff;font-weight: bold; }
-          .right{width:10px;height: 100%;background: blue;position: absolute;top:0;right: 0;cursor: e-resize;}
-          .bottom{width:100%;height: 10px;background-color: red;bottom: 0;position: absolute;cursor: s-resize;}
-          .rg_bom{width: 20px;height: 20px;background: green;bottom: 0;right: 0;position: absolute;cursor: nw-resize;}
+          .right{width:10px;height: 100%;position: absolute;top:0;right: 0;cursor: e-resize;}
+          .bottom{width:100%;height: 10px;bottom: 0;position: absolute;cursor: s-resize;}
+          .rg_bom{width: 20px;height: 20px;bottom: 0;right: 0;position: absolute;cursor: nw-resize;}
 
   	</style>
   </head>
@@ -32,9 +32,12 @@
              var right = document.createElement('div');
              var bottom = document.createElement('div');
              var rg_bom = document.createElement('div');
-             right.className = 'right ctrl_elem';
-             bottom.className = 'bottom ctrl_elem';
-             rg_bom.className = 'rg_bom ctrl_elem';
+             right.className = 'right';
+             bottom.className = 'bottom';
+             rg_bom.className = 'rg_bom';
+             right.id = 'right';
+             bottom.id = 'bottom';
+             rg_bom.id = 'rg_bom';
              panel.appendChild(right);  //将右边元素加上
              panel.appendChild(bottom);  //将底部控制元素加上
              panel.appendChild(rg_bom);  //将右下角控制元素加上
@@ -123,22 +126,19 @@
               endY = e.pageY;
           };
           //定义当鼠标松开的时候的函数，此时消除定时器
-           document.onmouseup = function(e){
+           document.onmouseup = function(){
+               var right = document.getElementById('right');
+               var bottom = document.getElementById('bottom');
+               var rg_bom = document.getElementById('rg_bom');
               clearInterval(moving);
               moving = 0;
-              var elem = document.getElementsByClassName('elem_ctrl');
-              for(var i=0;i<elem.length;i++){
-                  elem[i].style.left = '';
-                  elem[i].style.top = '';
-              }
-              // var elem = getClass(panel,'ctrl_elem');
-              // for(var i=0;i<elem.length;i++)
-              // {
-              //     elem[i].style.left = ' ';
-              //     elem[i].style.top = ' ';
-              // }
+               right.style.left = '';
+               right.style.top = '';
+               bottom.style.top = '';
+               bottom.style.left = '';
+               rg_bom.style.left = '';
+               rg_bom.style.top = '';
           };
-         
            //执行函数
            reSize();
         };

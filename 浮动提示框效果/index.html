@@ -5,7 +5,7 @@
        <title>鼠标悬浮提示效果</title>
        <style type="text/css">
               *{ margin:0;padding:0;}
-              #demo{width:400px;height: 300px;border:1px solid #ccc;margin:0 auto;padding:30px;margin-top:200px;
+              #demo{width:400px;height: 300px;border:1px solid #ccc;margin:0 auto;padding:30px;margin-top:100px;
                   border-radius: 4px;-webkit-border-radius:4px;-moz-border-radius:4px; 
               }
               h1{color: blue;text-align: center;font-size: 16px;margin-bottom: 20px;}
@@ -52,8 +52,6 @@
 		            		    _id,
 		            		    _width,
 		            		    _height;
-                                
-
                             switch(target.id){
                             	case 't1':
                             	   _id = 'target1';
@@ -86,10 +84,9 @@
 
                  //实现showTip函数
                  function showTip(tar,_id,html,width,height){
-                 	 // var isIE = 
+                 	 if(getId(_id) == null){   //这一句必须加上，否则总是不成功
                  	 var demo = getId('demo');
-                 	 
-                     var href = document.createElement('div');
+                   var href = document.createElement('div');
                  	 href.className = 'toolbox';
                  	 href.id = _id;
                  	 href.innerHTML = html;
@@ -104,21 +101,21 @@
                      }else if(left<0){
                          left = 0;
                      }
-                 
-                 	 href.style.width = width?width +'px':'auto';
-                 	 href.style.height = height?height +'px':'auto';
-                 	 href.style.left = left +'px';
-                 	 href.style.top = top+ 30+'px';
-                 	 demo.appendChild(href);
-
-             	   //当鼠标移出时所触发的事件,使之有一个延迟效果，用户体验更好
+                   href.style.width = width?width +'px':'auto';
+                   href.style.height = height?height +'px':'auto';
+                   href.style.left = left +'px';
+                   href.style.top = top+ 30+'px';
+                   demo.appendChild(href);
+                    //当鼠标移出时所触发的事件,使之有一个延迟效果，用户体验更好
                       tar.onmouseleave = function(){
-		                   setTimeout(function(){
-		                       getId(_id).style.display = 'none';
-		                   },300);
+                       setTimeout(function(){
+                           getId(_id).style.display = 'none';
+                       },300);
                       };
+                 }else{
+                    getId(_id).style.display = 'block';
                  }
-               
+                 }
            };
          </script>
     </body>
