@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8"/>
+       <title>鼠标悬浮提示效果</title>
+       <style type="text/css">
+              *{ margin:0;padding:0;}
+              #demo{width:400px;height: 300px;border:1px solid #ccc;margin:0 auto;padding:30px;margin-top:200px;
+                  border-radius: 4px;-webkit-border-radius:4px;-moz-border-radius:4px; 
+              }
+              h1{color: blue;text-align: center;font-size: 16px;margin-bottom: 20px;}
+              a{text-decoration: none;line-height: 32px;}
+              a:hover{text-decoration: underline;}
+              .toolbox{width: 200px;height: 200px;border:1px solid #e8e8e8;border-radius: 4px;-webkit-border-radius:4px;-moz-border-radius:4px;padding: 20px;
+              	background-color: #ccc;}
+              /*.tooltip{ width: 200px;height: 200px;}*/
+       </style>
+    </head>
+    <body>
+         <div id="demo">
+             <h1>js实现鼠标悬浮提示效果</h1>
+              <p>　转眼间，今天已经是<a href="" class="tooltip" id="t1">社会实践</a>的第十天了，这十天发生的<a href="" class="tooltip" id="t2">点点滴滴</a>都恍如昨日，一切都是那么清晰，历历在目。这十天，有欢乐，<a href="" class="tooltip" id="t3">有悲伤</a>，不过一切都是如此难忘，所有的经历都会成为我青春里<a href="" class="tooltip"  id="t4">最美的回忆<a></p>
+         </div>
+         <script type="text/javascript">
+           // window.onload = function(){
+           // 	   alert(document.getElementById('t1').offsetLeft);
+           // 	   alert(document.getElementById('t1').offsetTop);
+           // }
+             window.onload = function(){
+                    var demo = getId('demo');
+		            //返回Id的函数，避免以后多次用到
+		            function getId(id){
+		            	return document.getElementById(id);
+		            }
+
+		            //为dom元素添加事件，具有浏览器兼容性
+		            function addEvent(obj,type,fn){
+		            	if(obj.addEventListener){
+		            		obj.addEventListener(type,fn,false);
+		            	}else if(obj.attachEvent){
+		            		obj.attachEvent('on'+type,fn);
+		            	}
+		            }
+		            //为demo中的超链接元素添加事件冒泡事件
+		            addEvent(demo,"mouseover",function(e){
+		            	var event = e || window.event;
+		            	var target = e.target || e.srcElement;  //获取事件触发的函数
+		            	if(target.className == 'tooltip'){
+
+		            		//声明一些变量
+		            		var _html,
+		            		    _id,
+		            		    _width,
+		            		    _height;
+                                
+
+                            switch(target.id){
+                            	case 't1':
+                            	   _id = 'target1';
+                            	   _html = '社会实践是学校为了锻炼学生实践能力的一种活动';
+                            	   break;
+                            	case 't2':
+                            	   _id = 'target2';
+                            	   _html = '<p>前世的几千次回眸，</p><p>只换回今世的擦肩而过</p>';
+                            	   break;
+                            	case 't3':
+                            	   _id = 'target3';
+                            	   _html = "<img src='1.png'/>";
+                            	   break;
+                            	case 't4':
+                            	   _id = 'target4';
+                            	   _html = "<p>要好好珍惜,真的</p>";
+                            	   break;
+                            }
+                           showTip(target,_id,_html,_width,_height);
+
+                        
+		            	}
+		            });
+                 
+                 //获取各个id号
+                 var t1 = getId('t1');
+                 var t2 = getId('t2');
+                 var t3 = getId('t3');
+                 var t4 = getId('t4');
+
+                 //实现showTip函数
+                 function showTip(tar,_id,html,width,height){
+                 	 // var isIE = 
+                 	 var demo = getId('demo');
+                 	 
+                     var href = document.createElement('div');
+                 	 href.className = 'toolbox';
+                 	 href.id = _id;
+                 	 href.innerHTML = html;
+                 	 href.style.position = 'absolute';
+
+                 	  //设置提示框的显示
+                     var left = tar.offsetLeft;
+	                 var top = tar.offsetTop; 
+                     if(left+href.offsetWidth > document.body.clientWidth){  //不让提示框超出右边边框
+                     	var dLeft = getId('demo').offsetLeft;
+                     	left = document.body.clientWidth - dLeft - href.offsetWidth;
+                     }else if(left<0){
+                         left = 0;
+                     }
+                 
+                 	 href.style.width = width?width +'px':'auto';
+                 	 href.style.height = height?height +'px':'auto';
+                 	 href.style.left = left +'px';
+                 	 href.style.top = top+ 30+'px';
+                 	 demo.appendChild(href);
+
+             	   //当鼠标移出时所触发的事件,使之有一个延迟效果，用户体验更好
+                      tar.onmouseleave = function(){
+		                   setTimeout(function(){
+		                       getId(_id).style.display = 'none';
+		                   },300);
+                      };
+                 }
+               
+           };
+         </script>
+    </body>
+</html>
