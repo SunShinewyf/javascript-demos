@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>评论点赞功能</title>
+	<style type="text/css">
+         *{margin:0;padding:0;}
+         a{text-decoration: none;color:#333;}
+         a:hover{text-decoration: underline;}
+         #list{	width:440px;height:auto;border:1px solid #ccc;margin:0 auto;list-style:none;}
+         .person-box{width:400px;height:450px;margin:0 auto;margin-top:20px;position: relative;}
+         .head-img{width:60px;height: 60px;}
+         .close{text-decoration: none;position: absolute;left:374px;top:0;width:27px;height: 27px;display: inline-block;background: gray;line-height: 27px;text-align: center;color: #fff;}
+         .close:hover{text-decoration: none;}
+         .main{width:330px;float: right;margin-top:20px;}
+         p{font-size: 16px;}
+         p strong{font-size: 18px;font-weight: bold;color:purple;}
+         .main img{width:120px;height: 150px;margin:10px;}
+         .main .info{height:40px;line-height: 40px;font-size:14px;}
+         .main .praise{float:right;width:50px;color:purple;background: url(zan.png) no-repeat;background-position: 9px 11px;padding-left: 30px;}
+         .praise-total{height: 40px;line-height: 40px;background: #eee;font-size: 14px;background: url(zan.png) no-repeat left center;padding-left: 20px;}
+         .main .comment-list{list-style: none;}
+         .main .comment{height: 80px;}
+         .comment img{width:50px;height: 50px;}
+         .main .comment-box{width:240px;float:right;margin-top:10px;font-size: 12px;height: 50px;}
+         .comment-box p{font-size: 12px;}
+         .comment-box .user{font-weight: bold;color: purple;}
+         .comment-praise{margin-left: 70px;display:inline-block;color:purple;width:40px;background: url(zan.png)no-repeat left center;padding-left: 20px;}
+         .comment-action{margin-left: 20px;}
+         #comment-input{width:100%;font-family: "Microsoft Yahei";font-size: 14px;padding-left: 15px;height: 30px;}
+         .btn{height: 30px;line-height: 30px;width:80px;background: purple;text-align: center;margin-left: 200px;border:none;color:#fff;margin-top:10px;}
+         .btn-off{background: #ccc;}
+         hr{width:100%;border:1px solid #eee;margin-top: 10px;}
+
+	</style>
+</head>
+   <body>
+        <ul id='list'>
+             <li class="person-box">
+                 <a class="close" href="javascript:;">X</a>
+                 <img class="head-img" src="head.jpg"/>
+                 <div class="main">
+                 	 <p><strong>sunshine</strong>：每个人都很喜欢你哟</p>
+                     <img src="book.jpg"/>
+                     <div class="info">
+                     	<span class="time">2015/8/17</span>
+                     	<a class="praise" href="javascript:;">赞</a>
+                     </div> 
+                     <div class="praise-total" total='1'>
+                     	共有1人觉得很赞
+                     </div>
+                     <ul class="comment-list">
+                     	<li class="comment">
+                     		<img src="head.jpg">
+                     		<div class="comment-box">
+                     			<p class="comment-content">
+                     			<span class="user">我:</span>要好好读书
+                     		    </p>
+	                     		 <p class="comment-time">
+	                     		 	2015.8.15
+	                     		    <a href="javascript:;" class="comment-praise" total="1" my="0">1赞</a>
+	                     		    <a href="javascript:;" class="comment-action">删除</a>
+	                     		</p>
+                     		</div>
+                     	</li>
+                     </ul>
+                     <textarea id="comment-input" placeholder="评论..."></textarea>
+                     <button class="btn">回复</button>
+                     <span class="word"><span class="length">0</span>/140</span>
+                 </div>
+             </li>
+               <hr>
+               <li class="person-box">
+                 <a class="close" href="javascript:;">X</a>
+                 <img class="head-img" src="head.jpg"/>
+                 <div class="main">
+                 	 <p><strong>sunshine</strong>：每个人都很喜欢你哟</p>
+                     <img src="book.jpg"/>
+                     <div class="info">
+                     	<span class="time">2015/8/17</span>
+                     	<a class="praise" href="javascript:;">赞</a>
+                     </div> 
+                     <div class="praise-total" total='4'>
+                     	共有4人觉得很赞
+                     </div>
+                     <ul class="comment-list">
+                     	<li class="comment">
+                     		<img src="head.jpg">
+                     		<div class="comment-box">
+                     			<p class="comment-content">
+                     			<span class="user">我:</span>要好好读书
+                     		    </p>
+	                     		 <p class="comment-time">
+	                     		 	2015.8.15
+	                     		    <a href="javascript:;" class="comment-praise" total="1" my="0">1赞</a>
+	                     		    <a href="javascript:;" class="comment-action">删除</a>
+	                     		</p>
+                     		</div>
+                     	</li>
+                     </ul>
+                     <textarea id="comment-input" placeholder="评论..."></textarea>
+                     <button class="btn">回复</button>
+                     <span class="word"><span class="length">0</span>/140</span>
+                 </div>
+             </li>
+       </ul>
+
+<script type="text/javascript" src="action.js"></script>
+   </body>
+</html>
