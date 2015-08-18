@@ -3,6 +3,8 @@ window.onload = function(){
     	var lis = ul.getElementsByTagName('li');
 
     	for(var i=0;i<lis.length;i++){
+
+
     		  lis[i].onclick = function(e){
     		  	  var event  = e || window.event;
     		  	  var elem = e.srcElement || e.target;
@@ -19,12 +21,34 @@ window.onload = function(){
     		  	  		case 'btn':
     		  	  		
 
-                        
-
-
     		  	  }
     		  }
-    		}
+    }
+
+     //修改日期的表示形式
+     function change(num){
+        if(num < 10){
+            num = '0'+num;
+        }
+        return num;
+     }
+     
+     //获得时间的函数
+     function getTime(){
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        month = change(month);
+        day = change(day);
+        hour = change(hour);
+        min = change(min);
+        var str = year+"-"+month+"-"+day+"&nbsp;&nbsp;"+hour+":"+min;
+
+        return str;
+     }
 
     //删除节点的函数
     function removeNode(node){
@@ -32,19 +56,21 @@ window.onload = function(){
     }
     
     //获取类名为cls的dom节点
-    function getClass(obj,cls){
-    	var elems = obj.getElementsByTagName('*');
-    	var result = [];
-    	for(var i=0;i<elems.length;i++){
-    		if(elems[i].className == cls){
-    			result.push(elems[i]);
-    		}
-    	}
-    	return result;
-    }
+       function getClass(obj,cls){
+             var elements = obj.getElementsByTagName('*');
+             var result = [];
+             var testReg = new RegExp("(^|\s)" + cls + "(\s|$)"); 
+             for(var i=0;i<elements.length;i++){
+                if(testReg.test(elements[i])){
+                    result.push(elements[i]);
+                }
+             }
+             return result;
+        }
     //点赞函数
     function praise(parent,node){
-    	var total = getClass(parent,'praise-total')['0'];
+    	var total = getClass(parent,'praise-total')[0];
+        // alert(total);
     	var num = parseInt(total.getAttribute('total'));
     	var content = node.innerHTML;
     	var newNum;
@@ -61,5 +87,8 @@ window.onload = function(){
     	total.style.display = (newNum == 0) ? 'none' : 'block';
     }
 
-
+    // //发表评论的函数
+    // function makeComment(box){
+    //     var textarea
+    // }
  };
