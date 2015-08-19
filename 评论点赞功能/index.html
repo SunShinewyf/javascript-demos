@@ -8,7 +8,7 @@
          a{text-decoration: none;color:#333;}
          a:hover{text-decoration: underline;}
          #list{	width:440px;height:auto;border:1px solid #ccc;margin:0 auto;list-style:none;}
-         .person-box{width:400px;height:480px;margin:0 auto;margin-top:20px;position: relative;}
+         .person-box{width:400px;height: 550px;margin:0 auto;margin-top:20px;position: relative;}
          .head-img{width:60px;height: 60px;}
          .close{text-decoration: none;position: absolute;left:374px;top:0;width:27px;height: 27px;display: inline-block;background: gray;line-height: 27px;text-align: center;color: #fff;}
          .close:hover{text-decoration: none;}
@@ -21,14 +21,15 @@
          .praise-total{height: 40px;line-height: 40px;background: #eee;font-size: 14px;background: url(zan.png) no-repeat left center;padding-left: 20px;}
          .main .comment-list{list-style: none;}
          .main .comment{height: 80px;}
+         .comment:hover .comment-praise{display: inline-block;}
+         .comment:hover .comment-action{display: inline-block;}
          .comment img{width:50px;height: 50px;}
          .main .comment-box{width:240px;float:right;margin-top:10px;font-size: 12px;height: 50px;}
          .comment-box p{font-size: 12px;}
          .comment-box .user{font-weight: bold;color: purple;}
-         .comment-praise{margin-left: 30px;display:inline-block;color:purple;width:40px;background: url(zan.png)no-repeat left center;padding-left: 20px;}
-         .comment-action{margin-left: 10px;}
+         .comment-praise{margin-left: 30px;display:inline-block;color:purple;width:50px;background: url(zan.png)no-repeat left center;padding-left: 20px;display:none;}
+         .comment-action{margin-left: 10px;display: none;}
          .comment-input{width:100%;font-family: "Microsoft Yahei";font-size: 14px;padding-left: 15px;height: 30px;}
-         .comment-input .on{height: 60px;}
          .btn{height: 30px;line-height: 30px;width:80px;background: purple;text-align: center;margin-left: 200px;border:none;color:#fff;margin-top:10px;}
          .btn-off{background: #ccc;}
          hr{width:100%;border:1px solid #eee;margin-top: 10px;}
@@ -58,8 +59,8 @@
                      			<span class="user">我:</span>要好好读书
                      		    </p>
 	                     		 <p>
-	                     		 	<span class="comment-time">2015.8.15</span>
-	                     		    <a href="javascript:;" class="comment-praise" total="1" my="0">1赞</a>
+	                     		 	<span class="comment-time">2015-8-15  20:58</span>
+	                     		    <a href="javascript:;" class="comment-praise" total="1" my="0">赞</a>
 	                     		    <a href="javascript:;" class="comment-action">删除</a>
 	                     		</p>
                      		</div>
@@ -93,15 +94,17 @@
                      		    </p>
 	                     		 <p>
 	                     		 	<span class="comment-time">2015.8.15</span>
-	                     		    <a href="javascript:;" class="comment-praise" total="1" my="0">1赞</a>
-	                     		    <a href="javascript:;" class="comment-action">删除</a>
+	                     		    <a href="javascript:;" class="comment-praise" total="1" my="0">赞</a>
+	                     		    <a href="javascript:;" class="comment-action">回复</a>
 	                     		</p>
                      		</div>
                      	</li>
                      </ul>
+                     <div class+'text'>
                      <textarea class="comment-input">评论...</textarea>
                      <button  class="btn btn-off">回复</button>
                      <span class="word"><span class="length">0</span>/140</span>
+                    </div>
                  </div>
              </li>
        </ul>
