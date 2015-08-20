@@ -1,4 +1,5 @@
 window.onload = function(){
+    alert(adf);
     	var ul = document.getElementById('list');
     	var lis = ul.getElementsByTagName('li');
         

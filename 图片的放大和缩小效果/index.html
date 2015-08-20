@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   	<meta charset="utf-8"/>
+      <title>图片的放大和缩小效果</title>
+      <style type="text/css">
+           *{margin:0;padding:0;}
+           #main{width:900px;margin:0 auto;height: 900px;margin-top:100px;}
+           img{margin:0 auto;}
+           .button{width:70px;height: 40px;line-height: 40px;text-align: center;background: purple;color: #fff;border:none;border-radius: 4px;margin-top:20px;margin-left: 200px;position: absolute;top:0;right: 80px;}
+           #bigger{top:50px;}
+      </style>
+   </head>
+   <body>
+       <div id = "main">
+             <img src="dog.jpg" id="dog"/>
+             <button id="bigger" class="button">放大</button>
+             <button id="smaller" class="button">缩小</button>
+       </div>
+       <script type="text/javascript">
+            window.onload = function(){
+                 var img = document.getElementById('dog');
+                 var big = document.getElementById('bigger');
+                 var small = document.getElementById('smaller');
+                 big.onclick = function(){
+                 	IsBig();
+                 };
+                 small.onclick = function(){
+                 	IsSmall();
+                 };
+                 	var maxW = img.width*3;
+                 	var maxH = img.height*3;
+                 	var minW = img.width*0.3;
+                 	var minH = img.height*0.3;
+                 //定义变大函数
+                 function IsBig(){
+                 	var EveryW = img.width*1.3;
+                 	var EveryH = img.height*1.3;
+                 	var timer = setInterval(function(){
+                 		if(img.width < EveryW){
+                 			if(img.width < maxW){
+                 				  img.width = img.width*1.05;
+                                  img.height = img.height*1.05;
+                 			}else{
+                 				alert('图片已经到达最大值了');
+                 				clearInterval(timer);
+                 			}
+                    }else{
+                    	clearInterval(timer);
+                    }
+                 
+                 },20);
+              }
+              //缩小函数
+              function IsSmall(){
+              	 var Everyw = img.width*0.7;
+              	 var Everyh = img.height*0.7;
+              	 var timer = setInterval(function(){
+                     if(img.width > Everyw){
+                     	 if(img.width > minH){
+                     	 	img.width = img.width*0.95;
+                     	 	img.height = img.height*0.95;
+                     	 }else{
+                     	 	alert("已经到达最小值了");
+                     	 	clearInterval(timer);
+                     	 }
+                     }else{
+                     	clearInterval(timer);
+                     }
+              	 },20);
+              }
+
+            };
+       </script>
+   </body>
+ </html>
+ 
