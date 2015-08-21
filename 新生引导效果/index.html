@@ -6,8 +6,8 @@
              *{margin: 0;padding:0;}
              .main{width: 960px;margin: 0 auto;height: 1000px;position: relative;}
              .main img{width:960px;}
-             #guide{width:960px;background: #eee;position:absolute;left:50%;top:0;height:100%;margin-left: -480px;}
-             .step{position: absolute;width:300px;height: 400px;}
+             #guide{width:960px;position:absolute;left:50%;top:0;height:100%;margin-left: -480px;display: none;}
+             .step{position: absolute;width:300px;height: 400px;display: none;}
              #mask{background: #333;width:100%;height: 100%;opacity: 0.5;filter:alpha(opacity=50);position: absolute;top:0;left: 0;display: none;}
              .step a{ position:absolute;width:96px; height:32px; cursor:pointer; text-indent:-999px; overflow:hidden}
              .step span{cursor:pointer; position:absolute; width:30px; height:30px;text-indent:-999px; overflow:hidden} 
@@ -39,5 +39,48 @@
                    <div class="step E"><a class="next">下一步</a><span class="close">关闭</span></div>
               </div>
            </div>
+           <script type="text/javascript">
+                window.onload = function(){
+
+                  //页面初始进来时的情况
+                    var mask = document.getElementById('mask');
+                    var guide = document.getElementById('guide');
+                    var steps = guide.getElementsByTagName('div');
+                    var nexts = guide.getElementsByTagName('a');
+                    var closes = guide.getElementsByTagName('span');
+                    
+                    //读取cookie
+                    var res = document.cookie.substring(5);
+                     if(res!="http://localhost/javascript-demos/%e6%96%b0%e7%94%9f%e5%bc%95%e5%af%bc%e6%95%88%e6%9e%9c/"){ 
+                              mask.style.display = guide.style.display = steps[0].style.display = 'block';
+                                for(var i=0,len = steps.length;i<len;i++){
+                                      nexts[i].index = i;
+
+                                      //点击下一步所进行的操作
+                                      nexts[i].onclick = function(){
+                                          if(this.index < steps.length -1){
+                                               this.parentNode.style.display = 'none';
+                                               steps[this.index + 1].style.display = 'block';
+                                          }else if(this.index == steps.length-1){
+                                            this.parentNode.style.display = 'none';
+                                            mask.style.display = 'none';
+                                          }
+                                      };
+                                      
+                                      //点击关闭按钮时进行的操作
+                                      closes[i].onclick = function(){
+                                          mask.style.display = 'none';
+                                          this.parentNode.style.display = 'none';
+                                      };
+                                }
+                     }
+         
+
+                    //进行cookie的设置
+                    var date = new Date();
+                    date.setDate(date.getDate() + 30);
+                    document.cookie = "name=http://localhost/javascript-demos/%e6%96%b0%e7%94%9f%e5%bc%95%e5%af%bc%e6%95%88%e6%9e%9c/;expires="+date;   //添加cookie
+                };
+           </script>
      </body>
    </html>
