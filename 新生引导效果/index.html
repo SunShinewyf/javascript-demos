@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+   <html>
+     <head>
+       <meta charset="utf-8"/>
+       <style>
+             *{margin: 0;padding:0;}
+             .main{width: 960px;margin: 0 auto;height: 1000px;position: relative;}
+             .main img{width:960px;}
+             #guide{width:960px;background: #eee;position:absolute;left:50%;top:0;height:100%;margin-left: -480px;}
+             .step{position: absolute;width:300px;height: 400px;}
+             #mask{background: #333;width:100%;height: 100%;opacity: 0.5;filter:alpha(opacity=50);position: absolute;top:0;left: 0;display: none;}
+             .step a{ position:absolute;width:96px; height:32px; cursor:pointer; text-indent:-999px; overflow:hidden}
+             .step span{cursor:pointer; position:absolute; width:30px; height:30px;text-indent:-999px; overflow:hidden} 
+             .A{background: url(1.png);height:329px; width:745px; top:130px; left:-9px;}
+             .A a{top:230px; left:490px; }
+             .A span{ top:143px; right:32px; }
+             .B{background:url(2.png); width:647px; height:405px;top:2px; left:324px;}
+             .B a{top:308px; left:146px;}
+             .B span{ top:196px; right:285px; }  
+             .C{ background:url(3.png); width:654px; height:257px;top:294px; left:318px}
+             .C a{top:155px; left:400px; }
+             .C span{ top:44px; right:35px; }
+             .D{background:url(4.png); width:558px; height:348px;top:78px; left:155px}
+             .D a{top:246px; left:304px;}
+             .D span{ top:135px; right:35px; }
+             .E{background:url(5.png); width:397px; height:342px;top:79px; left:250px}
+             .E a{top:245px; left:153px;}
+       </style>
+     </head>
+     <body>
+           <div class="main">
+              <img src="bg.png"/>
+              <div id="mask"></div>
+              <div id="guide">
+                   <div class="step A"><a class="next">下一步</a><span class="close">关闭</span></div>
+                   <div class="step B"><a class="next">下一步</a><span class="close">关闭</span></div>
+                   <div class="step C"><a class="next">下一步</a><span class="close">关闭</span></div>
+                   <div class="step D"><a class="next">下一步</a><span class="close">关闭</span></div>
+                   <div class="step E"><a class="next">下一步</a><span class="close">关闭</span></div>
+              </div>
+           </div>
+     </body>
+   </html>
