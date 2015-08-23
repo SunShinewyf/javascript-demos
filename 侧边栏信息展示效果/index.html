@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>侧边栏信息展示效果</title>
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
+	<style>
+	  *{margin:0;padding: 0;}
+      #main{
+      	width:50px;position: fixed;height: 100%;background: #e8e8e8;font-family: "Microsoft YaHei";
+      }
+      ul{list-style: none;margin-top:200px;}
+      .item{text-align: center;margin-top: 10px;}
+      li p{font-size: 12px;}
+      #close{
+      	position: absolute;width:50px;text-align: center;bottom: 20px;width:20px;height: 20px;
+      	cursor: pointer;margin-left: 10px;
+      }
+      .content{
+      	width:200px;height: 100%;font-size:12px;
+      	position: absolute;background: #ccc;left:50px;
+      	opacity: 0.4;border:1px solid black;
+      }
+	</style>
+</head>
+<body>
+	<div id="main">
+		<ul>
+			<li id="me" class="item">
+				<i class="icon-sitemap"></i>
+				<p>资产</p>
+			</li>
+			<li id="asset" class="item">
+				<i class="icon-star"></i>
+				<p>收藏</p>
+			</li>
+			<li id="" class="item">
+				<i class="icon-heart"></i>
+				<p>关注</p>
+			</li>
+			<li id="" class="item">
+				<i class="icon-adjust"></i>
+				<p>我看过的</p>
+			</li>
+			<li id="" class="item">
+				<i class="icon-shopping-cart"></i>
+				<p>购买过的</p>
+			</li>
+		</ul>
+		<div id="close">
+			<span class="icon-remove"></span>
+		</div>
+	</div>
+	<div class="content">
+		<div id="me-content">
+			<div id="me-content">
+				<span>资产</span>
+				<i class="icon-angle-left"></i>
+			</div>
+
+			<div id="asset-content">
+                 <span>收藏</span>
+                 <i class="icon-angle-left"></i>
+			</div>
+		   <div id="me-content">
+				<span>关注</span>
+				<i class="icon-angle-left"></i>
+			</div>
+
+			<div id="asset-content">
+                 <span>看过的</span>
+                 <i class="icon-angle-left"></i>
+			</div>
+
+			<div id="asset-content">
+                 <span>购物车</span>
+                 <i class="icon-angle-left"></i>
+			</div>
+		</div>
+	</div>
+   <script type="text/javascript" src="js/admin.js"></script>
+</body>
+</html>
