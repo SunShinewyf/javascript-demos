@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>qq时间轴效果</title>
+	<style>
+	   html,
+       body{margin:0;padding:0;background: url(bg1.png) #1c0c0f no-repeat center 0 fixed;}
+       .head{height: 40px;width: 100%;background: rgba(0,0,0,.8);}
+       .content{width:960px;margin:0 auto; height: 500px;/*background: rgba(255,255,255,.5);*/position: relative;}
+       .sidebar{width:47px;height: 300px;position: absolute;left: 0;top:20px;background: rgba(255,255,255,.5);}
+       .sidebar a{display: block;width: 32px;height: 32px;border-right: rgba(200,200,200,.5);padding-right: 5px;font-size: 12px;text-shadow:0 1px 1px rgba(0,0,0,.3);text-align: left;text-decoration: none;padding: 5px 0 5px 5px;}
+       .sidebar a:hover,
+       .sidebar a .current{border-right: 1px solid #7ebad0;color:#7ebad0;font-weight: bold;}
+       .time{position: absolute;top:20px;left:80px;}
+       .time a{display:block;width:50px;height: 30px;line-height: 40px;text-decoration: none;text-shadow:0 1px 1px rgba(0,0,0,.5);}
+       .line{width:2px;height: 1000px;border-right: 2px solid rgba(255,255,255,.8);position: absolute;left:140px;top:20px;}
+       .main{position: relative;left:180px;height: 300px;margin-top:30px;}
+       .main .item{height: 300px;width: 400px;background: #fff;border-radius: 4px;margin:20px 30px 0 0 ;position: relative;}
+       .item .arrow{position: absolute;left: -10px;top:20px;height: 0;border-color:transparent #fff transparent transparent;border-width: 10px 10px 10px 0;border-style: dashed solid dashed  dashed;}  /*用css制作三角形*/
+       .item .dot{width:11px;height: 11px;border-radius: 11px;background: #fff;position: absolute;left:-42px;top:20px;}
+       .item .dot-child{width:7px;height: 7px;border-radius: 7px;background: #bad3e9;position: absolute;left:2px;top:2px;}
+       .item .head{background: #fff;}
+       .item .title{font-size: 28px;position: relative;top:20px;margin:20px 10px 10px 10px;height: 56px;line-height: 56px;background: #fff;}
+       .title .lunar{width: 46px;height: 46px;overflow: hidden;position: absolute;left: 0;top:0;font-size: 18px;background: #84c5dc;}
+       .title .calendar{font-size: 24px;color:#e8e8e8;margin-left: 100px;}
+       .item .detail{width:360px;margin:0 auto;height: 250px;}
+       .detail .name{width:200px;height:30px;color:#666;text-align: center;font-size: 18px;margin-top:40px;}
+       .detail p{line-height: 24px;color: #666;margin-top:-3px;font-size: 14px;padding-bottom: 10px;border-bottom: 1px solid #ccc;}
+       .item .info{width:360px;margin:0 auto;height: 50px;position: absolute;top:220px;left:20px;line-height: 50px;}
+       .info .zan{width:60px;height: 30px;line-height: 30px;overflow: hidden;background: url(zan.png) no-repeat 1px 4px;float: left;text-align: right;font-size: 14px;}
+       .info .share{width:50px;margin-left: 20px;height: 30px;float: left;overflow: hidden;background: url(share.png)no-repeat 0px 8px;text-align: right;font-size: 14px;line-height: 30px;}
+
+	</style>
+</head>
+<body>
+	<div class="head"></div>
+	<div class="content">
+		<div class="sidebar">
+            <a href="" class="year">2015</a>
+            <a href="" class="current">8月</a>
+		</div>
+		<div class="time">
+			<a href="" class="year">2014</a>
+			<a href="" class="month">23</a>
+		</div>
+		<div class="line"></div>
+		<div class="main">
+             <div class="item">
+             	<div class="arrow"></div>
+             	<div class="dot">
+             		<div class="dot-child"></div>
+             	</div>
+             	<div class="head">
+             		<div class="title">
+             			<div class="lunar">三&nbsp;十</div>
+             			<div class="calendar">2015-8-23</div>
+             		</div>
+             	</div>
+             	<div class="detail">
+                     <div class="name">《我的孤独，虽败犹荣》</div>
+                     <p class="describe">近来喜欢看些闲书，于是在周末的临睡前和闲隙看完了这本书。刘同和郭敬明还有韩寒一样，都是用淡淡忧伤的文字触摸人们内心最柔软的轨迹。曾经知道他有一本书《谁的青春不迷茫》，而且还配有极其文艺的插图，但是单...</p>
+             	</div>
+             	<div class="info">
+             		<div class="zan">（33）</div>
+             		<div class="share">（5）</div>
+             	</div>
+             </div>
+		</div>
+	</div>
+<script src="data.js"></script>
+<script src="GetLunarDay.js"></script>
+<script src="fx.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>
