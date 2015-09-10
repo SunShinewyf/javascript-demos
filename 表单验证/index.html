@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>form validate</title>
+	<style type="text/css">
+	*{margin:0;padding:0;}
+	body{font-family: "Microsoft Yahei";font-size: 15px;}
+	form{width:600px;height: auto;margin:0 auto;margin-top:100px;}
+   #pswspan{display: inline-block;width:100px;height: 5px;background: #c3c3c3;}
+   #pwdld i{display: block;background: green;height: 5px;width:0;}
+	</style>
+</head>
+<body>
+	<form method="post" onSubmit="return eg.regCheck();">
+        <input type="hidden" name="" id="errnum" value="0"/>
+        <label for="name">账户</label>
+        <input type="text" name="username" id="username"/></br></br>
+        <label for="password">密码</label>
+        <input type="password" name="password" id="password"/>密码强度<span id="pswspan"><i id="pwdld"></i></span><br></br>
+        <label for="confirm">确认</label>
+        <input type="password" name="repassword" id="repassword"/></br></br>
+        <label for="sex">性别</label>
+        <input type="radio" name="sex" value="1" checked="checked"/>男
+        <input type="radio" name="sex" value="2"/>女</br></br>
+        <label for="age">年龄</label>
+        <select name="" id="age">
+        	<option value="0" selected="selected">请选择下列年龄段</option>
+        	<option value="1">18岁以下</option>
+        	<option value="2">18-25岁</option>
+        	<option value="3">24-30岁</option>
+        	<option value="4">30岁以上</option>
+       </selected></br></br>
+       <label for="like"></label>
+        <input type="checkbox" name="like" value="1" class="like"/>上网
+        <input type="checkbox" name="like" value="2"  class="like"/>唱歌
+        <input type="checkbox" name="like" value="3" class="like"/>逛街
+        <input type="checkbox" name="like" value="4" class="like"/>看电影
+        <input type="checkbox" name="like" value="5" class="like"/>其他
+    </br></br>
+    <label for="describe">简介</label>
+    <textarea name="describe" id="describe" col="18" rows="4"></textarea></br></br>
+    <label for="register">注册</label>
+    <input type="submit" value="注册" id="reg"/>
+    <input type="button" value="解锁" onclick="eg.unlock()" style="display:none;" id="unlock"/>
+	</form>
+	<script>
+        //声明一个空对象，相当于定义一个命名空间
+        var eg = {};
+        //声明一个公共函数
+        eg.getId = function(id){
+        	return document.getElementById(id);
+        };
+
+        //定义一个获得类名为classname的dom元素
+        eg.getClass = function(classname,element){
+        	if(document.getElementsByClassName){
+        		return (element || document).getElementsByClassName(classname);
+        	}
+        	var elem = new Array();
+        	var children = (element || document).getElementsByTagName('*');
+        	for(var i=0,len=children.length;i<len;i++){
+        		var child = children[i];
+        		var classNames = child.className.spilt(' ');
+        		for(var j=0;j<classNames.length;j++){
+        			if(classNames[j] == classname){
+                        elem.push(child);
+                        break;
+        			}
+        		}
+        	}
+        	return elem;
+        };
+
+        //定义事件监听的兼容函数
+        eg.addEvent = function(elem,type,handler){
+        	if(elem.addEventListener){
+        		elem.addEventListener(type,handler,false);
+        	}else if(elem.attachEvent){
+        		elem.attachEvent('on'+type,handler);
+        	}else{
+        		elem['on'+type] = handler;
+        	}
+        };
+
+        //表单验证方法
+        eg.regCheck = function(){
+        	var username = eg.getId('username');
+        	var psw = eg.getId('password');
+        	var repsw = eg.getId('repassword');
+        	var about = eg.getId('describe');
+        	var age = eg.getId('age');
+        	var sex = eg.getId('sex');
+        	var like = eg.getClass('like');
+        	var likeNum = 0;
+        	if(username.value == ''){
+        		alert('账户不得为空');
+        		username.focus();
+        		eg.err();
+        		return false;
+        	}
+        	if(psw.value == ''){
+        		alert('账户密码不得为空');
+        		password.focus();
+        		eg.err();
+        		return false;
+        	}
+        	if(repsw.value !== psw.value){
+        		alert('两次密码不一致');
+        		repassword.focus();
+        		eg.err();
+        		return false;
+        	}
+        	if(about.length >60){
+        		alert('简介太长了');
+        		about.focus();
+        		eg.err();
+        		return false;
+        	}
+        	if(age.value == 0){
+        		alert('请选择年龄区段');
+        		age.focus();
+        		eg.err();
+        		return false;
+        	}
+        	for(var i=0;i<like.length;i++){
+        		if(like[i].checked){
+        			likeNum++;
+        		}
+        	}
+        	if(likeNum == 0){
+        		alert('请至少选择一个爱好选项');
+        		er.err();
+        		like.focus();
+        		return false;
+        	}
+        	return true;
+        }
+        	eg.checkpsw = function(){
+        		var psw = eg.getId('password');
+                eg.addEvent(psw,"keyup",function(){
+                    var lv = 0;
+                    if(/^\d{4,}$/.test(psw.value)){
+                    	lv = 10;
+                    }else if(/^\w{4,}$/.test(psw.value)){
+                    	lv = 25;
+                    }else if(/^[\d\w]{4,}$/.test(psw.value)){
+                    	lv = 50;
+                    }else if(psw.value.lenght<4){
+                    	lv = 0;
+                    }else if(psw.value.lenght>4 && psw.value.lenght<10){
+                    	lv = 6;
+                    }
+                    eg.getId("pswspan").style.width = lv +'px';
+                });
+        	};
+        	eg.checkpsw();
+        	//出错记录的定义
+        	eg.err = function(){
+        		var el = eg.getId('errnum');
+        		var old = el.value;
+        		el.value = parseInt(old)+1;
+        		eg.lock();
+        	};
+        //定义锁定函数
+        eg.lock = function(){
+        	var num = eg.getId('errnum').value;
+        	if(num>2){
+        		eg.getId('reg').disabled = true;
+        		eg.getId('unlock').style.display = 'block';
+        	}
+        };
+       //取消锁定
+       eg.unlock = function(){
+       	 eg.getId('reg').disabled = false;
+       	 eg.getId('unlock').style.display = 'none';
+       };
+
+	</script>
+</body>
+</html>
