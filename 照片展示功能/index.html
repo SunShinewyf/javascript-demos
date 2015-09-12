@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>photo shows</title>
+	<style>
+	*{margin: 0;padding: 0;}
+	    .content{width:900px;box-shadow: 0px 2px #eee;height: 600px;margin: 0 auto;}
+	    #bigPic{width: 100%;height: 400px;}
+	    #bigPic img{width: 900px;height: 400px;}
+	    #smallPic{width: 880px;margin: 0 auto;height: 120px;}
+	    ul{list-style: none;width: 800px;margin-left:35px;height:96px;}
+	    ul li{float: left;margin-left: 10px;}
+	    li img{border:2px solid #000;width:100px;height: 80px;}
+	    #prev{background: url(circleleft.png) no-repeat;display: inline-block;width: 30px;height: 30px;position: relative;left:10px;top:60px;}
+	    #next{background: url(circleright.png) no-repeat;display: inline-block;width:30px;height: 30px;position: relative;top:-68px;left:840px;}
+	</style>
+</head>
+<body>
+	<div class="content">
+        <div id="bigPic"><img id="big" src="1.jpg"/></div>
+        <div id="smallPic">
+        	<span id="prev"></span>
+        	<ul id="smallList">
+        		<!-- <li><img src="2.jpg" alt=""></li>
+        		<li><img src="3.jpg" alt=""></li>
+        		<li><img src="4.jpg" alt=""></li>
+        		<li><img src="5.jpg" alt=""></li>
+        		<li><img src="6.jpg" alt=""></li>
+        		<li><img src="7.jpg" alt=""></li>
+        		<li><img src="1.jpg" alt=""></li> -->
+        	</ul>
+        	<span id="next"></span>
+        </div>
+	</div>
+	<script type="text/javascript">
+          var eg = {};
+          //对象的一些数据
+          eg.data = [
+              '1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg',
+          ];
+          eg.currentNum = 0;  //默认显示当前的第一张图片
+          eg.group = 1;  //当前显示的组
+          eg.Size = 7;  //每组的数量
+          //定义全局的函数
+          eg.getId = function(id){
+          	 return document.getElementById(id);
+          };
+          //定义兼容不同浏览器的事件监听函数
+          eg.addEvent = function(elem,type,handler){
+              if(elem.addEventListener){
+              	elem.addEventListener(type,handler,false);
+              }else if(elem.attachEvent){
+              	elem.attachEvent('on'+type,handler);
+              }else{
+              	elem['on'+type] = handler;
+              }
+          }
+          //展示照片的函数
+          eg.showPic = function(group){
+              var ul = eg.getId('smallList');
+              var start = (group-1)*eg.Size;
+              var end = group*eg.Size;
+              ul.innerHTML = '';
+              for(var i=start;i<end;i++){
+              	var li = document.createElement('li');
+              	li.innerHTML = '<img src="'+eg.data[i]+'" alt=""/>';
+              	//定义立即执行函数
+              	(function(i){
+                     eg.addEvent(li,'click',function(){
+                     	eg.currentNum = i;
+                     	eg.showBig();
+                     });
+              	})(i);
+              	ul.appendChild(li);
+              }
+          };
+
+          //显示大图函数
+          eg.showBig = function(){
+              eg.getId('big').src = eg.data[eg.currentNum];
+              // console.log(eg.currentNum);
+          }
+          
+          //显示上一张图的函数
+          eg.showNext = function(){
+              if((eg.group*eg.Size)+1<= eg.data.length){
+                eg.showPic(eg.group + 1);
+                eg.currentNum = eg.group * eg.Size;
+                eg.showBig();
+                eg.group ++;
+                console.log(eg.currentNum);
+                console.log(eg.group);
+              }
+          };
+          //显示下一组图的函数
+          eg.showPrev = function(){
+              if(eg.group-1 >= 1){
+                eg.showPic(eg.group -1);
+                eg.group --;
+                eg.currentNum = eg.group * eg.Size - eg.Size;
+                eg.showBig();
+              }
+          }
+          //定义初始化函数
+          eg.init = function(){
+          	eg.showPic(1);
+            eg.addEvent(eg.getId('prev'),'click',function(){
+            	eg.showPrev();
+            });
+            eg.addEvent(eg.getId('next'),'click',function(){
+            	eg.showNext();
+            });
+            eg.addEvent(document,"keyup",function(e){
+              e = e || event;
+              if(e.keyCode == 37){
+                 eg.prevPic();
+              }
+              if(e.keyCode == 39){
+                eg.nextPic();
+              }
+            });
+
+          };
+
+          //显示上一张图片
+          eg.pervPic = function(){
+            if(eg.currentNum == 0){
+               eg.showPrev();
+            }else if(eg.currentNum >0){
+               eg.currentNum --;
+               eg.showBig();
+            }
+          }
+         
+         // 显示下一张图片
+         eg.nextPic = function(){
+          if(eg.currentNum%7 == 6){
+            eg.showNext();
+          }else if(eg.currentNum <eg.data.length-1){
+            eg.currentNum++;
+            eg.showBig();
+          }
+         }
+
+  
+          eg.init();
+	</script>
+</body>
+</html>
